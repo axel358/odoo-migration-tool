@@ -1,0 +1,6 @@
+data/org.demo.OdooMigration.desktop.in
+data/org.demo.OdooMigration.appdata.xml.in
+data/org.demo.OdooMigration.gschema.xml
+src/main.py
+src/window.py
+src/window.ui
