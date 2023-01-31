@@ -2,27 +2,79 @@ using Gtk 4.0;
 using Adw 1;
 
 template OdoomigrationtoolWindow : Adw.ApplicationWindow {
-  default-width: 600;
-  default-height: 300;
+  default-width: 400;
+  default-height: 600;
+  title: "Odoo Migration Tool";
 
   Box {
     orientation: vertical;
 
     HeaderBar header_bar {
+      [start]
+      Button {
+        label: "Open";
+      }    
+       
       [end]
       MenuButton {
         icon-name: "open-menu-symbolic";
         menu-model: primary_menu;
       }
+      
     }
 
-    Label label {
-      label: "Hello, World!";
-      vexpand: true;
-
-      styles [
-        "title-1",
-      ]
+    Box {
+      spacing: 12;
+      margin-top: 12;
+      margin-start: 24;
+      margin-end: 24;
+      margin-bottom: 12;
+      orientation: vertical
+      Adw.PreferencesGroup {
+        title: "Model name";
+        vexpand: true;
+        header-suffix: Button {
+        styles["flat"]
+          child: Adw.ButtonContent {
+            label: "New field";
+            icon-name: "list-add-symbolic";
+          
+          };
+        };
+        
+        Adw.EntryRow {
+          title: "Field name";
+          
+          Button {
+            icon-name: "close-symbolic";
+            styles["flat"]
+          }
+        }
+        
+        Adw.EntryRow {
+          title: "Field name";
+          
+          Button {
+            icon-name: "close-symbolic";
+            styles["flat"]
+          }
+        }
+        
+        Adw.EntryRow {
+          title: "Field name";
+          
+          Button {
+            icon-name: "close-symbolic";
+            styles["flat"]
+          }
+        }
+      }
+      
+      Button {
+        halign: center;
+        label: "Migrate";
+        styles["suggested-action", "pill"]
+      }
     }
   }
 }
