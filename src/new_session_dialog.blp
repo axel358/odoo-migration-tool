@@ -1,0 +1,22 @@
+using Gtk 4.0;
+using Adw 1;
+
+template NewSessionDialog : Adw.MessageDialog {
+    title: "New session";
+
+    Adw.PreferencesGroup {
+        Adw.EntryRow {
+            title: "Url";
+        }
+        Adw.EntryRow {
+            title: "Database name";
+        }
+        Adw.EntryRow {
+            title: "Username";
+        }
+        Adw.EntryRow {
+            title: "Password";
+        }
+    }
+  
+}

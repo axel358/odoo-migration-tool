@@ -28,3 +28,14 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+
+@Gtk.Template(resource_path='/org/demo/OdooMigration/new_session_dialog.ui')
+class NewSessionDialog(Adw.MessageDialog):
+    __gtype_name__ = 'NewSessionDialog'
+
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.add_response('cancel', 'Cancel')
+        self.add_response('connect', 'Connect')
