@@ -12,7 +12,8 @@ template OdoomigrationtoolWindow : Adw.ApplicationWindow {
     HeaderBar header_bar {
       [start]
       Button {
-        label: "Open";
+        label: "New session";
+        clicked => new_session();
       }    
        
       [end]
@@ -23,14 +24,87 @@ template OdoomigrationtoolWindow : Adw.ApplicationWindow {
       
     }
 
+    Adw.ToastOverlay {
+
+      Adw.Leaflet {
+
+      width-request: 352;
+
+      Adw.ViewStack models_stack {
+                    vexpand: true;
+
+                    Adw.ViewStackPage {
+                      name: "session";
+                        child:
+                        Box {
+        vexpand: true;
+        valign: center;
+        orientation: vertical;
+
+        Button {
+          clicked => new_session();
+          halign: center;
+          valign: center;
+          label: "New session";
+          styles ["pill", "suggested-action"]
+        }
+      };
+    }
+
+
+                    Adw.ViewStackPage {
+                      name: "models";
+                        child:
+                            
+                                    Box {
+                                        orientation: vertical;
+
+                                        Adw.PreferencesGroup {
+                                          margin-start: 12;
+                                          margin-end: 12;
+                                            title: _("Models");
+
+                                            
+                                        }
+                                        ListBox {
+                                        
+                                          
+                                         
+                                        Adw.ActionRow {
+                                          icon-name: "image";
+                                          title: "Model 1";
+                                          subtitle: "model1";
+                                        }
+                                        Adw.ActionRow {
+                                          icon-name: "image";
+                                          title: "Model 2";
+                                          subtitle: "model2";
+                                        }
+
+                                        styles ["navigation-sidebar"]
+                                        }
+
+                                        
+                                    
+                            };
+                    }
+                    
+      }
+
+      Separator {}
+
+    Adw.Clamp {
+                                margin-start: 12;
+                                margin-end: 12;
+                                margin-bottom: 12;
+                                tightening-threshold: 300;
+                                child: 
+ 
     Box {
       spacing: 12;
-      margin-top: 12;
-      margin-start: 24;
-      margin-end: 24;
-      margin-bottom: 12;
       orientation: vertical;
-      
+      width-request: 352;
+
       Adw.PreferencesGroup {
         title: "Model name";
         vexpand: true;
@@ -75,6 +149,9 @@ template OdoomigrationtoolWindow : Adw.ApplicationWindow {
         halign: center;
         label: "Migrate";
         styles["suggested-action", "pill"]
+      }
+    };
+    }
       }
     }
   }

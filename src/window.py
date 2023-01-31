@@ -24,13 +24,23 @@ from gi.repository import Gtk
 class OdoomigrationtoolWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'OdoomigrationtoolWindow'
 
-    label = Gtk.Template.Child()
+    models_stack = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+    @Gtk.Template.Callback()
+    def new_session(self, widget):
+        dialog = NewSessionDialog(parent=self)
+        dialog.connect('response', self.on_new_sesion_reponse)
+        dialog.show()
 
-@Gtk.Template(resource_path='/org/demo/OdooMigration/new_session_dialog.ui')
+    def on_new_sesion_reponse(self, dialog, response):
+        if response == 'connect':
+            self.models_stack.props.visible_child_name = "models"
+
+
+@Gtk.Template(resource_path='/org/demo/OdooMigration/new-session-dialog.ui')
 class NewSessionDialog(Adw.MessageDialog):
     __gtype_name__ = 'NewSessionDialog'
 
@@ -39,3 +49,4 @@ class NewSessionDialog(Adw.MessageDialog):
         super().__init__(**kwargs)
         self.add_response('cancel', 'Cancel')
         self.add_response('connect', 'Connect')
+        self.set_response_appearance('connect', Adw.ResponseAppearance.SUGGESTED)

@@ -5,7 +5,7 @@ gnome = import('gnome')
 blueprints = custom_target('blueprints',
   input: files(
     'window.blp',
-    'new_session_dialog.blp'
+    'new-session-dialog.blp',
   ),
   output: '.',
   command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
