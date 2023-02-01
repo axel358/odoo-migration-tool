@@ -44,3 +44,20 @@ class Session():
             return 'Not Authenticated'
         result = self.models_endpoint.execute_kw(self.db, self.uid, self.password, model, method, [domain], params) 
         return result
+
+    def get_db_models(self):
+        """A function that returns all the models of a database and his human-readable string
+
+        Returns:
+            list: a list of dictionaries {'name': name_value, 'model': model_value}
+        """
+        model = 'ir.model'
+        method = 'search_read'
+        domain = []
+        params = {'fields' : ['name', 
+                              'model',]}
+        result = []
+        for model in self.execute_method(model, method, domain, params):
+            result.append({'name': model['name'], 
+                           'model': model['model']},)
+        return result
