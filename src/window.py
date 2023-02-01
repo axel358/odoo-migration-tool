@@ -19,6 +19,7 @@
 
 from gi.repository import Adw
 from gi.repository import Gtk
+from .session import Session
 
 @Gtk.Template(resource_path='/org/demo/OdooMigration/window.ui')
 class OdoomigrationtoolWindow(Adw.ApplicationWindow):
@@ -37,13 +38,24 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
 
     def on_new_sesion_reponse(self, dialog, response):
         if response == 'connect':
-            self.models_stack.props.visible_child_name = "models"
+            url = dialog.url_entry.get_text()
+            db_name = dialog.db_entry.get_text()
+            username = dialog.username_entry.get_text()
+            password = dialog.password_entry.get_text()
+            
+            #TODO: Validate fields
+            self.session = Session(username, password, url, db_name)
+            self.session.authenticate()
 
 
 @Gtk.Template(resource_path='/org/demo/OdooMigration/new-session-dialog.ui')
 class NewSessionDialog(Adw.MessageDialog):
     __gtype_name__ = 'NewSessionDialog'
 
+    url_entry = Gtk.Template.Child()
+    db_entry = Gtk.Template.Child()
+    username_entry = Gtk.Template.Child()
+    password_entry = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
