@@ -27,9 +27,13 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
 
     models_stack = Gtk.Template.Child()
     models_list = Gtk.Template.Child()
+    fields_list = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.models_list.connect('row-selected', self.on_model_selected)
+        self.models_list.append(Adw.ActionRow())
+        self.models_list.append(Adw.ActionRow())
 
     @Gtk.Template.Callback()
     def new_session(self, widget):
@@ -58,7 +62,17 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
                 row.set_title(model['name'])
                 row.set_subtitle(model['model'])
                 self.models_list.append(row)
-                
+
+    def on_model_selected(self, box, row):
+        model = row.get_subtitle()
+        fields = self.session.get_model_fields(model)
+
+        for field in fields:
+                row = Adw.EntryRow()
+                row.set_title('Field')
+                row.set_text(field['name'])
+                self.fields_list.append(row)
+
 
 @Gtk.Template(resource_path='/org/demo/OdooMigration/new-session-dialog.ui')
 class NewSessionDialog(Adw.MessageDialog):

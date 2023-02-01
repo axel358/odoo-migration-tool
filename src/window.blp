@@ -2,7 +2,7 @@ using Gtk 4.0;
 using Adw 1;
 
 template OdoomigrationtoolWindow : Adw.ApplicationWindow {
-  default-width: 400;
+  default-width: 800;
   default-height: 600;
   title: "Odoo Migration Tool";
 
@@ -68,7 +68,7 @@ template OdoomigrationtoolWindow : Adw.ApplicationWindow {
                                         }
                                         ScrolledWindow {
                                           vexpand: true;
-                                          Viewport subs_scroll {
+                                          Viewport {
                                             ListBox models_list {
                                               styles ["navigation-sidebar"]
                                             }
@@ -109,32 +109,15 @@ template OdoomigrationtoolWindow : Adw.ApplicationWindow {
           };
         };
         
-        Adw.EntryRow {
-          title: "Field name";
-          
-          Button {
-            icon-name: "close-symbolic";
-            styles["flat"]
+        ScrolledWindow {
+          vexpand: true;
+          Viewport{
+            ListBox fields_list {
+              styles ["boxed-list"]
+            }
           }
         }
         
-        Adw.EntryRow {
-          title: "Field name";
-          
-          Button {
-            icon-name: "close-symbolic";
-            styles["flat"]
-          }
-        }
-        
-        Adw.EntryRow {
-          title: "Field name";
-          
-          Button {
-            icon-name: "close-symbolic";
-            styles["flat"]
-          }
-        }
       }
       
       Button {
