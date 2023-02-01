@@ -61,3 +61,26 @@ class Session():
             result.append({'name': model['name'], 
                            'model': model['model']},)
         return result
+
+    def get_model_fields(self, model: str):
+        """A function that returns all the fields of a model
+
+        Args:
+            model (str): model name in the form module_name.model_name
+
+        Returns:
+            list: a list of dictionaries {'name': name_value, 'label': label_value}
+        """
+        models = 'ir.model.fields'
+        method = 'search_read'
+        domain = [('model', '=', model)]
+        result = []
+        for field in self.execute_method(models, method, domain):
+
+            description = ''
+            if field['field_description']:
+                description = field['field_description']
+            
+            result.append({'name': field['name'],
+                           'label': description},)
+        return result
