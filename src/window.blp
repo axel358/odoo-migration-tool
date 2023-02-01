@@ -66,23 +66,15 @@ template OdoomigrationtoolWindow : Adw.ApplicationWindow {
 
                                             
                                         }
-                                        ListBox models_list {
+                                        ScrolledWindow {
+                                          vexpand: true;
+                                          Viewport subs_scroll {
+                                            ListBox models_list {
+                                              styles ["navigation-sidebar"]
+                                            }
+                                          }
+                                        }
                                         
-                                          
-                                         
-                                        Adw.ActionRow {
-                                          icon-name: "image";
-                                          title: "Model 1";
-                                          subtitle: "model1";
-                                        }
-                                        Adw.ActionRow {
-                                          icon-name: "image";
-                                          title: "Model 2";
-                                          subtitle: "model2";
-                                        }
-
-                                        styles ["navigation-sidebar"]
-                                        }
 
                                         
                                     

@@ -39,6 +39,7 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
 
     def on_new_sesion_reponse(self, dialog, response):
         if response == 'connect':
+            self.models_stack.set_visible_child_name('models')
             url = dialog.url_entry.get_text()
             print(url)
             db_name = dialog.db_entry.get_text()
@@ -57,7 +58,7 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
                 row.set_title(model['name'])
                 row.set_subtitle(model['model'])
                 self.models_list.append(row)
-
+                
 
 @Gtk.Template(resource_path='/org/demo/OdooMigration/new-session-dialog.ui')
 class NewSessionDialog(Adw.MessageDialog):

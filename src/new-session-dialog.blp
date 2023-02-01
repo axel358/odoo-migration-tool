@@ -7,15 +7,19 @@ template NewSessionDialog : Adw.MessageDialog {
     Adw.PreferencesGroup {
         Adw.EntryRow url_entry {
             title: "Url";
+            text: "http://localhost:8065";
         }
         Adw.EntryRow db_entry {
             title: "Database name";
+            text: "odoo15_db";
         }
         Adw.EntryRow username_entry {
             title: "Username";
+            text: "odoo15@gmail.com";
         }
         Adw.EntryRow password_entry {
             title: "Password";
+            text: "odoo15";
         }
     }
   
