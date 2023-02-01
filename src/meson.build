@@ -39,6 +39,7 @@ odoomigrationtool_sources = [
   '__init__.py',
   'main.py',
   'window.py',
+  'session.py',
 ]
 
 install_data(odoomigrationtool_sources, install_dir: moduledir)
