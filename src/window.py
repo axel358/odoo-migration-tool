@@ -32,8 +32,6 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.models_list.connect('row-selected', self.on_model_selected)
-        self.models_list.append(Adw.ActionRow())
-        self.models_list.append(Adw.ActionRow())
 
     @Gtk.Template.Callback()
     def new_session(self, widget):
@@ -67,9 +65,14 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
         model = row.get_subtitle()
         fields = self.session.get_model_fields(model)
 
+        child = self.field_list.get_first_child()
+
+        while child is not None:
+            self.fields_list.remove(child)
+
         for field in fields:
                 row = Adw.EntryRow()
-                row.set_title('Field')
+                row.set_title(field['label'])
                 row.set_text(field['name'])
                 self.fields_list.append(row)
 
