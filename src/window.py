@@ -26,6 +26,7 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'OdoomigrationtoolWindow'
 
     models_stack = Gtk.Template.Child()
+    models_list = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -39,6 +40,7 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
     def on_new_sesion_reponse(self, dialog, response):
         if response == 'connect':
             url = dialog.url_entry.get_text()
+            print(url)
             db_name = dialog.db_entry.get_text()
             username = dialog.username_entry.get_text()
             password = dialog.password_entry.get_text()
@@ -46,6 +48,15 @@ class OdoomigrationtoolWindow(Adw.ApplicationWindow):
             #TODO: Validate fields
             self.session = Session(username, password, url, db_name)
             self.session.authenticate()
+
+            models = self.session.get_db_models()
+            
+            for model in models:
+                row = Adw.ActionRow()
+                row.set_icon_name('image')
+                row.set_title(model['name'])
+                row.set_subtitle(model['model'])
+                self.models_list.append(row)
 
 
 @Gtk.Template(resource_path='/org/demo/OdooMigration/new-session-dialog.ui')
