@@ -82,18 +82,22 @@ class Session():
         result = self.models_endpoint.execute_kw(self.db, self.uid, self.password, model, method, [domain], params) 
         return result
 
-    def get_db_models(self):
+    def get_db_models(self, modules: list=[]) -> list[dict]:
         """A function that returns all the models of a database and his human-readable string
+
+        Args:
+            module (list, optional): module name value. Defaults to ''.
 
         Returns:
             list: a list of dictionaries {'name': name_value, 'model': model_value}
         """
         model = 'ir.model'
         method = 'search_read'
-        domain = []
+        domain = self._format_domain(modules)       
         params = {'fields' : ['name', 
                               'model',]}
         result = []
+        
         for model in self.execute_method(model, method, domain, params):
             result.append({'name': model['name'], 
                            'model': model['model']},)
