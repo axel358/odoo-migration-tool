@@ -116,6 +116,7 @@ class Session():
         method = 'search_read'
         domain = [('model', '=', model)]
         result = []
+
         for field in self.execute_method(models, method, domain):
 
             description = ''
@@ -124,4 +125,24 @@ class Session():
             
             result.append({'name': field['name'],
                            'label': description},)
+        return result
+
+    def retrive_records(self, model: str, fields: list=[]) -> list[dict]:
+        """A function that return all the records of a model
+
+        Args:
+            model (str): model name in the form module_name.model_name
+            fields (list, optional): list of fields for retrive records. Accept the output of get_model_fields function . Defaults to [] for all fields.
+
+        Returns:
+            list: a list of dictionaries {'name': name_value, 'label': label_value}
+        """
+        list_fields = self._format_fields(fields)
+        params = {'fields': list_fields}
+        result = []
+
+        ids_record = self.execute_method(model, 'search', [])
+        for id in ids_record:
+            record = self.execute_method(model, 'read', [id], params)
+            result.append(record[0])
         return result
