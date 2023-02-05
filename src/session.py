@@ -55,7 +55,7 @@ class Session():
                 domain.append(('model', 'ilike', module),)
         return domain
  
-    def authenticate(self):
+    def authenticate(self) -> int:
         """A function to authenticate the user for get access to execute methods
 
         Returns:
@@ -103,7 +103,7 @@ class Session():
                            'model': model['model']},)
         return result
 
-    def get_model_fields(self, model: str):
+    def get_model_fields(self, model: str) -> list[dict]:
         """A function that returns all the fields of a model
 
         Args:
