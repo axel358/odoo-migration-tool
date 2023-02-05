@@ -17,6 +17,43 @@ class Session():
         self.db = db
         self.models_endpoint = client.ServerProxy('{}/xmlrpc/2/object'.format(url))
         self.uid = None
+
+    def _format_fields(self, fields: list) -> list[str]:
+        """Internal function to format params's methods
+
+        Args:
+            fields (list): A list of fields or the list of dicts return by the get_model_fields function
+
+        Returns:
+            list[str]: A list of field's value name
+        """
+        list_fields = []
+        if len(fields) == 0 or isinstance(fields[0], str):
+            list_fields = fields
+        else:
+            for field in fields:
+                name = field['name']
+                list_fields.append(name,)
+        return list_fields
+    
+    def _format_domain(self, modules: list) -> list[tuple]:
+        """Internal function to format domain's methods
+
+        Args:
+            modules (list): A list of modules name
+
+        Returns:
+            list[tuple]: A list of domains withthe OR conditions for each one
+        """
+        domain = []
+        if len(modules) == 0:
+            domain = [('model', 'ilike', '')]
+        else:
+            for i in range(len(modules)-1):
+                domain.append('|',)
+            for module in modules:
+                domain.append(('model', 'ilike', module),)
+        return domain
  
     def authenticate(self):
         """A function to authenticate the user for get access to execute methods
