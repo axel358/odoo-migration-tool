@@ -118,13 +118,12 @@ class Session():
         result = []
 
         for field in self.execute_method(models, method, domain):
-
-            description = ''
+            description = 'Empty String'
             if field['field_description']:
                 description = field['field_description']
             
-            result.append({'name': field['name'],
-                           'label': description},)
+            result.append({'label': description,
+                           'name': field['name'],},)
         return result
 
     def retrive_records(self, model: str, fields: list=[]) -> list[dict]:
